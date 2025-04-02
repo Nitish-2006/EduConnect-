@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - EduConnect</title>
+    <style>
+        /* Basic Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            text-align: center;
+            background: #f0f4f8;
+            font-size: 16px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #007bff, #00d2ff);
+            color: white;
+            padding: 20px;
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #0056b3;
+            padding: 12px;
+        }
+
+        nav a {
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #003d82;
+        }
+
+        /* Main Content Container */
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* Left Container */
+        .left-container {
+            width: 30%;
+            background: #ffffff;
+            padding: 25px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .left-container h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Group Items */
+        .group-item {
+            padding: 12px;
+            background-color: #e7f3ff;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .group-item:hover {
+            background-color: #bde0ff;
+            transform: scale(1.05);
+        }
+
+        .group-item:active {
+            transform: scale(1);
+        }
+
+        /* Right Container */
+        .right-container {
+            width: 65%;
+            background: #ffffff;
+            padding: 25px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            height: 80vh;
+            overflow-y: auto;
+        }
+
+        .chat-container {
+            width: 100%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+
+        .chat-container.active {
+            display: block;
+        }
+
+        /* Calendar Styles */
+        #calendar-container {
+            display: none;
+            text-align: center;
+        }
+
+        #calendar-container.active {
+            display: block;
+        }
+
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            max-width: 700px;
+        }
+
+        .calendar-table th,
+        .calendar-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .calendar-table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Virtual Meeting Styles */
+        #virtual-meeting-container {
+            display: none;
+        }
+
+        #virtual-meeting-container.active {
+            display: block;
+        }
+
+        /* Resources Styles */
+        #resources-container {
+            display: none;
+        }
+
+        #resources-container.active {
+            display: block;
+        }
+
+        .select-dropdown {
+            padding: 12px;
+            font-size: 16px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s ease;
+        }
+
+        .select-dropdown:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .button:active {
+            transform: scale(1);
+        }
+
+        /* Chat Styles (WhatsApp-like) */
+        .chat-message {
+            margin-bottom: 20px;
+        }
+
+        .chat-message .user {
+            font-weight: bold;
+        }
+
+        .chat-message .message {
+            background-color: #dcf8c6;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 70%;
+        }
+
+        .chat-message .timestamp {
+            font-size: 12px;
+            color: #999;
+            margin-left: 10px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .chat-input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .emoji-picker {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .left-container,
+            .right-container {
+                width: 100%;
+            }
+
+            .calendar-table {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        EduConnect - Features
+    </header>
+    <nav>
+        <a href="content.html">Back to Home</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="container">
+        <!-- Left Side: Study Groups, Calendar, Virtual Meeting, Resources -->
+        <div class="left-container">
+            <h3>Features</h3>
+            <div class="group-item" onclick="toggleGroups()">View Groups</div>
+            <div id="study-groups-container" style="display: none;">
+                <div class="group-item" onclick="showChat('group1')">Group 1: Mathematics</div>
+                <div class="group-item" onclick="showChat('group2')">Group 2: Data Structures</div>
+                <div class="group-item" onclick="showChat('group3')">Group 3: Design Tool Workshop</div>
+                <div class="group-item" onclick="showChat('group4')">Group 4: Digital Design Computational Architecture</div>
+                <div class="group-item" onclick="showChat('group5')">Group 5: Social Immersive Learning</div>
+            </div>
+
+            <div class="group-item" onclick="toggleCalendar()">Calendar</div>
+            <div class="group-item" onclick="toggleVirtualMeeting()">Virtual Meeting</div>
+            <div class="group-item" onclick="toggleResources()">Resources</div>
+        </div>
+
+        <!-- Right Side: Chat Area for the Groups, Calendar, Virtual Meeting, and Resources -->
+        <div class="right-container">
+            <!-- Group Chats -->
+            <div class="chat-container" id="group1">
+                <h3>Mathematics Group Chat</h3>
+                <div class="chat-message">
+                    <div class="user">John</div>
+                    <div class="message">Hello everyone, how’s the math assignment going?</div>
+                    <div class="timestamp">10:05 AM</div>
+                </div>
+                <div class="chat-message">
+                    <div class="user">Sarah</div>
+                    <div class="message">It’s a bit tricky, but I’m making progress. 😅</div>
+                    <div class="timestamp">10:06 AM</div>
+                </div>
+
+                <!-- Input and Emoji -->
+                <div class="chat-input-container">
+                    <input class="chat-input" type="text" placeholder="Type a message...">
+                    <img class="emoji-picker" src="https://img.icons8.com/emoji/48/000000/grinning-face-emoji.png" alt="emoji">
+                </div>
+            </div>
+
+            <!-- Add more groups as needed similar to Group 1 -->
+
+            <div class="chat-container" id="calendar-container">
+                <h3>Online Classes Schedule</h3>
+                <table class="calendar-table" id="calendarTable"></table>
+            </div>
+
+            <div class="chat-container" id="virtual-meeting-container">
+                <h3>Virtual Meeting</h3>
+                <select id="subject-select" class="select-dropdown">
+                    <option value="mathematics">Mathematics</option>
+                    <option value="data-structures">Data Structures</option>
+                    <option value="design-tool-workshop">Design Tool Workshop</option>
+                    <option value="ddca">Digital Design Computational Architecture</option>
+                    <option value="sil">Social Immersive Learning</option>
+                </select>
+                <button class="button" onclick="createMeeting()">Create Meeting</button>
+            </div>
+
+            <div class="chat-container" id="resources-container">
+                <h3>Resources for <span id="resource-subject">Mathematics</span></h3>
+                <select id="resources-subject-select" class="select-dropdown" onchange="updateResources()">
+                    <option value="mathematics">Mathematics</option>
+                    <option value="data-structures">Data Structures</option>
+                    <option value="design-tool-workshop">Design Tool Workshop</option>
+                    <option value="ddca">Digital Design Computational Architecture</option>
+                    <option value="sil">Social Immersive Learning</option>
+                </select>
+                <ul id="resources-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 EduConnect | All Rights Reserved
+    </footer>
+
+    <script>
+        function toggleGroups() {
+            const groupsContainer = document.getElementById("study-groups-container");
+            groupsContainer.style.display = groupsContainer.style.display === "none" ? "block" : "none";
+        }
+
+        function toggleCalendar() {
+            closeAllSections();
+            const calendarContainer = document.getElementById("calendar-container");
+            calendarContainer.classList.toggle("active");
+
+            if (calendarContainer.classList.contains("active")) {
+                let table = document.getElementById("calendarTable");
+                let tableContent = `
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Subject</th>
+                            <th>Faculty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Monday</td>
+                            <td>Mathematics</td>
+                            <td>Dr. Smith</td>
+                        </tr>
+                        <tr>
+                            <td>Tuesday</td>
+                            <td>Data Structures</td>
+                            <td>Prof. Johnson</td>
+                        </tr>
+                        <tr>
+                            <td>Wednesday</td>
+                            <td>Design Tool Workshop</td>
+                            <td>Dr. Lee</td>
+                        </tr>
+                        <tr>
+                            <td>Thursday</td>
+                            <td>Digital Design Computational Architecture</td>
+                            <td>Prof. Brown</td>
+                        </tr>
+                        <tr>
+                            <td>Friday</td>
+                            <td>Social Immersive Learning</td>
+                            <td>Dr. Wilson</td>
+                        </tr>
+                    </tbody>
+                `;
+                table.innerHTML = tableContent;
+            }
+        }
+
+        function toggleVirtualMeeting() {
+            closeAllSections();
+            const virtualMeetingContainer = document.getElementById("virtual-meeting-container");
+            virtualMeetingContainer.classList.toggle("active");
+        }
+
+        function toggleResources() {
+            closeAllSections();
+            const resourcesContainer = document.getElementById("resources-container");
+            resourcesContainer.classList.toggle("active");
+            updateResources();
+        }
+
+        function updateResources() {
+            const subject = document.getElementById("resources-subject-select").value;
+            document.getElementById("resource-subject").innerText = subject.charAt(0).toUpperCase() + subject.slice(1);
+
+            const resourcesList = document.getElementById("resources-list");
+            let resourcesContent = '';
+
+            if (subject === 'mathematics') {
+                resourcesContent = `
+                    <li><a href="#">Mathematics Notes (PDF)</a></li>
+                    <li><a href="#">Mathematics PPT</a></li>
+                    <li><a href="#">Mathematics Practice Docs</a></li>
+                `;
+            } else if (subject === 'data-structures') {
+                resourcesContent = `
+                    <li><a href="#">Data Structures Notes (PDF)</a></li>
+                    <li><a href="#">Data Structures PPT</a></li>
+                    <li><a href="#">Data Structures Practice Docs</a></li>
+                `;
+            } else if (subject === 'design-tool-workshop') {
+                resourcesContent = `
+                    <li><a href="#">Design Tool Notes (PDF)</a></li>
+                    <li><a href="#">Design Tool PPT</a></li>
+                    <li><a href="#">Design Tool Practice Docs</a></li>
+                `;
+            } else if (subject === 'ddca') {
+                resourcesContent = `
+                    <li><a href="#">DDCA Notes (PDF)</a></li>
+                    <li><a href="#">DDCA PPT</a></li>
+                    <li><a href="#">DDCA Practice Docs</a></li>
+                `;
+            } else if (subject === 'sil') {
+                resourcesContent = `
+                    <li><a href="#">Sil Notes (PDF)</a></li>
+                    <li><a href="#">Sil PPT</a></li>
+                    <li><a href="#">Sil Practice Docs</a></li>
+                `;
+            }
+
+            resourcesList.innerHTML = resourcesContent;
+        }
+
+        function closeAllSections() {
+            const sections = document.querySelectorAll(".chat-container");
+            sections.forEach(section => {
+                section.classList.remove("active");
+            });
+        }
+
+        function showChat(groupId) {
+            closeAllSections();
+            const selectedChat = document.getElementById(groupId);
+            selectedChat.classList.add("active");
+        }
+
+        function createMeeting() {
+            const subjectSelect = document.getElementById("subject-select");
+            const subject = subjectSelect.value;
+
+            let meetLink = "https://meet.google.com/";
+
+            if (subject === "mathematics") {
+                meetLink = "https://meet.google.com/rvi-ejjq-qno";
+            } else if (subject === "data-structures") {
+                meetLink = "https://meet.google.com/yub-aicv-tfe";
+            } else if (subject === "design-tool-workshop") {
+                meetLink = "https://meet.google.com/iod-mxtu-pqa";
+            } else if (subject === "ddca") {
+                meetLink = "https://meet.google.com/ymf-jkgw-svf";
+            } else if (subject === "sil") {
+                meetLink = "https://meet.google.com/ioe-jbct-ynq";
+            }
+            window.location.href = meetLink;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect - Learn & Grow</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #00b4d8, #1e3c72); /* Gradient for a more dynamic look */
+            color: #333;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #121212, #1a1a1a); /* Dark gradient for dark mode */
+            color: #f4f4f4;
+        }
+
+        header {
+            background: #4CAF50; /* Green header */
+            color: white;
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        body.dark-mode header {
+            background: #2c3e50; /* Dark header for dark mode */
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent nav */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #003d82;
+        }
+
+        body.dark-mode nav {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode nav a {
+            color: #f4f4f4;
+        }
+
+        body.dark-mode nav a:hover {
+            background: #1c1c1c;
+        }
+
+        .section {
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .section {
+            background: rgba(0, 0, 0, 0.7);
+            color: #f4f4f4;
+        }
+
+        footer {
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+            position: relative;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+            border-radius: 8px;
+            margin-top: auto;
+        }
+
+        body.dark-mode footer {
+            background: #2c3e50;
+        }
+
+        /* Notifications Button Styles */
+        #notification-btn {
+            background-color: transparent;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        #notification-btn:hover {
+            background-color: #e6b800;
+        }
+
+        body.dark-mode #notification-btn {
+            color: #f4f4f4;
+        }
+
+        body.dark-mode #notification-btn:hover {
+            background-color: #333;
+        }
+
+        /* Dark Mode Button Styles */
+        #dark-mode-btn {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        #dark-mode-btn:hover {
+            background-color: #003d82;
+        }
+
+        /* Courses List Styles */
+        .courses-list {
+            list-style-type: none;
+            padding: 0;
+            font-size: 18px;
+        }
+
+        .courses-list li {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .courses-list li:hover {
+            background: #00b4d8; /* Highlight color on hover */
+            color: white;
+        }
+
+        .course-label {
+            font-size: 18px;
+        }
+
+        .checked {
+            color: #4caf50; /* Green for checkmark */
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        EduConnect - Learn & Grow
+    </header>
+    <nav>
+        <a href="#courses">Courses</a>
+        <a href="features.html">Features</a>
+        <a href="assignments.html">Assignments</a> <!-- New Assignments link -->
+        <button id="dark-mode-btn" onclick="toggleDarkMode()">
+            <i id="dark-mode-icon" class="fas fa-sun"></i> <!-- Default to Sun icon -->
+        </button>
+        <button id="notification-btn" class="off" onclick="toggleNotifications()">
+            <i id="notification-icon" class="fas fa-bell-slash"></i>
+        </button>
+    </nav>
+
+    <section id="courses" class="section">
+        <h2>Our Courses</h2>
+        <br>
+        <p>Explore a variety of online courses in different domains. Check out the courses offered below:</p>
+
+        <ul class="courses-list">
+            <li>
+                <span class="course-label">Mathematics</span>
+                <span class="checked">✅</span>
+            </li>
+            <li>
+                <span class="course-label">Data Structures</span>
+                <span class="checked">✅</span>
+            </li>
+            <li>
+                <span class="course-label">Design Tool Workshop</span>
+                <span class="checked">✅</span>
+            </li>
+            <li>
+                <span class="course-label">Digital Design Computational Architecture</span>
+                <span class="checked">✅</span>
+            </li>
+            <li>
+                <span class="course-label">Social Immersive Learning</span>
+                <span class="checked">✅</span>
+            </li>
+        </ul>
+    </section>
+
+    <footer>
+        &copy; 2025 EduConnect | All Rights Reserved
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            const darkModeButton = document.getElementById('dark-mode-btn');
+            const icon = document.getElementById('dark-mode-icon');
+
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('dark-mode-icon').classList.remove('fa-sun');
+            document.getElementById('dark-mode-icon').classList.add('fa-moon');
+        } else {
+            document.body.classList.remove('dark-mode');
+            document.getElementById('dark-mode-icon').classList.remove('fa-moon');
+            document.getElementById('dark-mode-icon').classList.add('fa-sun');
+        }
+
+        function toggleNotifications() {
+            const notificationButton = document.getElementById('notification-btn');
+            const notificationIcon = document.getElementById('notification-icon');
+            
+            notificationButton.classList.toggle('off');
+            if (notificationButton.classList.contains('off')) {
+                notificationIcon.classList.remove('fa-bell');
+                notificationIcon.classList.add('fa-bell-slash');
+            } else {
+                notificationIcon.classList.remove('fa-bell-slash');
+                notificationIcon.classList.add('fa-bell');
+            }
+        }
+    </script>
+</body>
+</html>
